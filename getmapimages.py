@@ -2,6 +2,8 @@ import csv
 import urllib
 import os
 from os.path import isfile, join
+import time
+import random
 
 UScitylist = {}
 
@@ -20,13 +22,15 @@ with open('GL2_city_loc.csv','rb') as csvfile:
 roadmapurl = "https://maps.googleapis.com/maps/api/staticmap?zoom=18&size=800x800&maptype=roadmap"
 satelliteurl = "https://maps.googleapis.com/maps/api/staticmap?zoom=18&size=800x800&maptype=satellite"
 
-#for city in UScitylist['Illinois']:
-#    urllib.urlretrieve(roadmapurl+"&center="+city, "mapdata/"+city+"_Illinois_roadmap.jpg")
-#    urllib.urlretrieve(roadmapurl+"&center="+city, "mapdata/"+city+"_Illinois_satellite.jpg")
- 
+for city in UScitylist['Illinois']:
+    urllib.urlretrieve(roadmapurl+"&center="+city, "mapdata/"+city+"_Illinois_roadmap.png")
+    urllib.urlretrieve(satelliteurl+"&center="+city, "mapdata/"+city+"_Illinois_satellite.png")
+    time.sleep(3 + random.random())
+    
 onlyfiles = [ f for f in os.listdir("mapdata/") if isfile(join("mapdata/",f)) ]
 
-for i in onlyfiles:
-    city = i.split('_')
+#for i in onlyfiles:
+#    city = i.split('_')
+#    time.sleep(2)
     #print satelliteurl+"&center="+city[0].lower()
-    urllib.urlretrieve(satelliteurl+"&center="+city[0].lower(), "mapdata/"+city[0]+"_Illinois_satellite.jpg")
+#    urllib.urlretrieve(satelliteurl+"&center="+city[0].lower(), "mapdata/"+city[0]+"_Illinois_satellite.png")
